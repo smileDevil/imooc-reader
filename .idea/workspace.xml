@@ -18,7 +18,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a4df215-e334-445e-9e7a-a5888097a28a" name="Default Changelist" comment="" />
+    <list default="true" id="4a4df215-e334-445e-9e7a-a5888097a28a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mylibrary.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jyb/entity/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jyb/entity/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/jyb/reader/service/MyBatisPlusTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/jyb/reader/service/MyBatisPlusTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jyb/entity/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jyb/entity/Test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/jyb/reader/service/MyBatisPlusTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/jyb/reader/service/MyBatisPlusTest.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,7 +84,7 @@
       <recent name="$PROJECT_DIR$/src/main" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MyBatisPlusTest.testInsert">
+  <component name="RunManager" selected="JUnit.MyBatisPlusTest.testSelect">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -101,6 +107,54 @@
       <option name="PACKAGE_NAME" value="com.jyb.reader.service" />
       <option name="MAIN_CLASS_NAME" value="com.jyb.reader.service.MyBatisPlusTest" />
       <option name="METHOD_NAME" value="testInsert" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyBatisPlusTest.testSelect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="imooc-reader" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jyb.reader.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jyb.reader.service" />
+      <option name="MAIN_CLASS_NAME" value="com.jyb.reader.service.MyBatisPlusTest" />
+      <option name="METHOD_NAME" value="testSelect" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyBatisPlusTest.testUpdate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="imooc-reader" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jyb.reader.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jyb.reader.service" />
+      <option name="MAIN_CLASS_NAME" value="com.jyb.reader.service.MyBatisPlusTest" />
+      <option name="METHOD_NAME" value="testUpdate" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyBatisPlusTest.testdelete" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="imooc-reader" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jyb.reader.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jyb.reader.service" />
+      <option name="MAIN_CLASS_NAME" value="com.jyb.reader.service.MyBatisPlusTest" />
+      <option name="METHOD_NAME" value="testdelete" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -268,9 +322,15 @@
       <item itemvalue="Tomcat Server.Tomcat 9.0.34" />
       <item itemvalue="JUnit.TestServiceTest.testBatchImport" />
       <item itemvalue="JUnit.MyBatisPlusTest.testInsert" />
+      <item itemvalue="JUnit.MyBatisPlusTest.testUpdate" />
+      <item itemvalue="JUnit.MyBatisPlusTest.testdelete" />
+      <item itemvalue="JUnit.MyBatisPlusTest.testSelect" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MyBatisPlusTest.testSelect" />
+        <item itemvalue="JUnit.MyBatisPlusTest.testdelete" />
+        <item itemvalue="JUnit.MyBatisPlusTest.testUpdate" />
         <item itemvalue="JUnit.MyBatisPlusTest.testInsert" />
         <item itemvalue="JUnit.TestServiceTest.testBatchImport" />
       </list>
@@ -284,7 +344,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1619066225911</updated>
-      <workItem from="1619066227261" duration="14157000" />
+      <workItem from="1619066227261" duration="15650000" />
     </task>
     <servers />
   </component>
@@ -323,22 +383,22 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="414" y="434" key="#com.intellij.javaee.module.view.web.EditWebRootDialog/0.23.1680.1027/-808.-1777.3200.1777@0.23.1680.1027" timestamp="1619066316281" />
-    <state width="1628" height="226" key="GridCell.Tab.0.bottom" timestamp="1619081571253">
+    <state width="1628" height="331" key="GridCell.Tab.0.bottom" timestamp="1619084586373">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1628" height="226" key="GridCell.Tab.0.bottom/0.23.1680.1027/-808.-1777.3200.1777@0.23.1680.1027" timestamp="1619081571253" />
-    <state width="1628" height="226" key="GridCell.Tab.0.center" timestamp="1619081571251">
+    <state width="1628" height="331" key="GridCell.Tab.0.bottom/0.23.1680.1027/-808.-1777.3200.1777@0.23.1680.1027" timestamp="1619084586373" />
+    <state width="1628" height="331" key="GridCell.Tab.0.center" timestamp="1619084586371">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1628" height="226" key="GridCell.Tab.0.center/0.23.1680.1027/-808.-1777.3200.1777@0.23.1680.1027" timestamp="1619081571251" />
-    <state width="1628" height="226" key="GridCell.Tab.0.left" timestamp="1619081571249">
+    <state width="1628" height="331" key="GridCell.Tab.0.center/0.23.1680.1027/-808.-1777.3200.1777@0.23.1680.1027" timestamp="1619084586371" />
+    <state width="1628" height="331" key="GridCell.Tab.0.left" timestamp="1619084586370">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1628" height="226" key="GridCell.Tab.0.left/0.23.1680.1027/-808.-1777.3200.1777@0.23.1680.1027" timestamp="1619081571249" />
-    <state width="1628" height="226" key="GridCell.Tab.0.right" timestamp="1619081571252">
+    <state width="1628" height="331" key="GridCell.Tab.0.left/0.23.1680.1027/-808.-1777.3200.1777@0.23.1680.1027" timestamp="1619084586370" />
+    <state width="1628" height="331" key="GridCell.Tab.0.right" timestamp="1619084586372">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1628" height="226" key="GridCell.Tab.0.right/0.23.1680.1027/-808.-1777.3200.1777@0.23.1680.1027" timestamp="1619081571252" />
+    <state width="1628" height="331" key="GridCell.Tab.0.right/0.23.1680.1027/-808.-1777.3200.1777@0.23.1680.1027" timestamp="1619084586372" />
     <state width="1113" height="267" key="GridCell.Tab.1.bottom" timestamp="1619075450106">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
