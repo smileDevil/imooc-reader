@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!--        tx是TransAction的英文缩写 代表事务控制-->
+
+    <!--  spring 框架启用注解模式
+             扫描符合条件bean
+            在Spring Ioc 初始化过程中，自动创建并管理com.jyb.sprinmvc及子包中拥有以下注解的对象
+            @Repository
+            @Service
+            @COntroller
+            @Component
+        -->
+    <context:component-scan base-package="com.jyb"/>
+<!--    开始mvc注解模式-->
+    <mvc:annotation-driven>
+<!--        响应中的中文输出乱码问题-->
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=utf-8</value>
+<!--                        json序列化输出配置-->
+                        <value>application/json;charset=utf-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+<!--    排除静态资源-->
+    <mvc:default-servlet-handler/>
+
+
+<!--    配置Freemarker模版引擎-->
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+<!--        freemarker脚本存放地址-->
+        <property name="templateLoaderPath" value="/WEB-INF/ftl"/>
+<!--        针对freemarker本身还需要的配置-->
+        <property name="freemarkerSettings">
+            <props>
+<!--                freemarker 读取文件时采用UTF-8 编码 ,避免在ftl脚本文件内部出现中文乱码-->
+                <prop key="defaultEncoding">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+<!--   执行  视图解析器 决定使用哪种模版引擎对数据解析-->
+    <bean id="ViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+<!--        视图解析器 将数据和模版引擎 结合所产生的新的html片段 向响应输出时的编码-->
+        <property name="contentType" value="text/html;charset=utf-8"/>
+<!--        要加载的模版引擎扩展名-->
+        <property name="suffix" value=".ftl"/>
+    </bean>
+
+<!--    MyBatis 与Spring 的整合配置-->
+<!--  2  配置数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/immoc_reader?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="rootroot"/>
+<!--    连接池有关参数 初始化要创建多少个数据池链接  initialSize  -->
+        <property name="initialSize" value="20"/>
+<!--      连接池有关参数  同时访问峰值 -->
+        <property name="maxActive" value="2000"/>
+    </bean>
+<!--3 自动实例化sqlSessionFactory  用于根据配置信息自动创建sqlSessionFactory ，不再需要自己编码创建-->
+<!--    原生MyBatis与Spring 整合-->
+<!--    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+<!--    使用MyBatis-Plus后-->
+    <bean id="sessionFactory" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+<!--        用于存储Sql语句的 map.xml文件位置-->
+        <property name="mapperLocations"  value="classpath:mappers/*.xml"/>
+<!--     5   制定mybatis配置文件地址-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+
+<!--   4 配置Mapper扫描器-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.jyb.reader.mapper"/>
+    </bean>
+
+<!--    声明式事务配置-->
+<!--     事务配置核心对象 事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--    以下是注解形式事务使用 启动事务的注解模式-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--  下面的配置 ，可以不再xml中配置，直接注解中设置 申明式事务使用， 事务通知配置，决定哪些方法使用事务，哪些方法不使用  -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!--            当执行当目标方法名为 batchImport时 启动申明式事务，成功提交， 运行时异常回滚-->
+            <!--            <tx:method name="batchImport" propagation="REQUIRED"/>-->
+            <tx:method name="batch*" propagation="REQUIRED"/>
+            <!--            说明以find开头的方法只读，不需要使用事务-->
+            <tx:method name="find*" propagation="NOT_SUPPORTED" read-only="true"/>
+            <tx:method name="get*" propagation="NOT_SUPPORTED" read-only="true"/>
+            <!--其他情况-->
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+    <!-- 3 说明事务通知作用在哪些类上 需要加入AOP 切点  -->
+    <!--    定义声明式事务的作用范围-->
+<!--    <aop:config>-->
+<!--        <aop:pointcut id="pointcut" expression="execution(public * com.jyb..*Service.*(..))"/>-->
+<!--        <aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut"/>-->
+<!--    </aop:config>-->
+</beans>

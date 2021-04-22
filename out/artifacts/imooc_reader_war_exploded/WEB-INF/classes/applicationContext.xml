@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--  spring 框架启用注解模式
+             扫描符合条件bean
+            在Spring Ioc 初始化过程中，自动创建并管理com.jyb.sprinmvc及子包中拥有以下注解的对象
+            @Repository
+            @Service
+            @COntroller
+            @Component
+        -->
+    <context:component-scan base-package="com.jyb"/>
+<!--    开始mvc注解模式-->
+    <mvc:annotation-driven>
+<!--        响应中的中文输出乱码问题-->
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=utf-8</value>
+<!--                        json序列化输出配置-->
+                        <value>application/json;charset=utf-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+<!--    排除静态资源-->
+    <mvc:default-servlet-handler/>
+
+
+<!--    配置Freemarker模版引擎-->
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+<!--        freemarker脚本存放地址-->
+        <property name="templateLoaderPath" value="/WEB-INF/ftl"/>
+<!--        针对freemarker本身还需要的配置-->
+        <property name="freemarkerSettings">
+            <props>
+<!--                freemarker 读取文件时采用UTF-8 编码 ,避免在ftl脚本文件内部出现中文乱码-->
+                <prop key="defaultEncoding">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+<!--   执行  视图解析器 决定使用哪种模版引擎对数据解析-->
+    <bean id="ViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+<!--        视图解析器 将数据和模版引擎 结合所产生的新的html片段 向响应输出时的编码-->
+        <property name="contentType" value="text/html;charset=utf-8"/>
+<!--        要加载的模版引擎扩展名-->
+        <property name="suffix" value=".ftl"/>
+    </bean>
+</beans>
